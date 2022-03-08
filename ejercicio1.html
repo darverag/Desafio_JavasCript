@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 1</title>
+</head>
+
+<body>
+    <div>
+        <div style="width: 40%;margin: 0 auto">
+            <h2>
+                Escríbenos !!!
+            </h2>
+            <div class="resultado" style="color:green;font-style: italic">
+            </div>
+            <form id="formulario">
+                <div>
+                    <div style="display: flex;flex-direction: column;">
+                        <label>
+                            Nombre completo
+                        </label>
+                        <input id="nombre" type="text">
+                        <p class="errorNombre" style="color:red;font-style: italic;"></p>
+                    </div>
+                    <div style="display: flex;flex-direction: column;">
+                        <label>
+                            Asunto
+                        </label>
+                        <input id="asunto" type="text">
+                        <p class="errorAsunto" style="color:red;font-style: italic;"></p>
+                    </div>
+                </div>
+                <div style="display: flex;flex-direction: column;">
+                    <label>
+                        Mensaje
+                    </label>
+                    <textarea id="mensaje"></textarea>
+                    <p class="errorMensaje" style="color:red;font-style: italic;"></p>
+                </div>
+                <div>
+                    <button id="botton" type="submit">
+                        Envíar mensaje
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        limpiaFormulario();
+        var formulario = document.getElementById("formulario");
+        formulario.addEventListener('submit', validarFormulario);
+
+
+        function limpiaFormulario() {
+            document.getElementById("nombre").value = "";
+            document.getElementById("asunto").value = "";
+            document.getElementById("mensaje").value = "";
+            document.querySelector(".errorNombre").innerHTML = "";
+            document.querySelector(".errorAsunto").innerHTML = "";
+            document.querySelector(".errorMensaje").innerHTML = "";
+
+        }
+
+        function validarFormulario(event) {
+            event.preventDefault();
+
+            let nombre = document.getElementById("nombre").value;
+            let asunto = document.getElementById("asunto").value;
+            let mensaje = document.getElementById("mensaje").value;
+
+            let validacionTexto = true;
+            let validacionIngresos = /[a-zA-Z]/gim;
+
+            if (nombre == "") {
+                document.querySelector(".errorNombre").innerHTML = "El nombre es requerido.";
+            }
+            if (asunto == "") {
+                document.querySelector(".errorAsunto").innerHTML = "El asunto es requerido.";
+            }
+            if (mensaje == "") {
+                document.querySelector(".errorMensaje").innerHTML = "El mensaje es requerido.";
+
+            } else if (validacionIngresos.test(nombre) == false) {
+                document.querySelector(".errorNombre").innerHTML = "Ingresa un nombre válido (SOLO LETRAS).";
+                validacionCorrecta = false;
+
+            } else if (validacionIngresos.test(asunto) == false) {
+                document.querySelector(".errorAsunto").innerHTML = "Ingresa un asunto válido (SOLO LETRAS).";
+                validacionCorrecta = false;
+
+            } else if (validacionIngresos.test(mensaje) == false) {
+                document.querySelector(".errorMensaje").innerHTML = "Ingrese un mensaje válido (SOLO LETRAS).";
+                validacionCorrecta = false;
+
+            } else {
+                document.querySelector(".resultado").innerHTML = "Mensaje enviado con éxito!!!!";
+                limpiaFormulario();
+
+            };
+        };
+    </script>
+</body>
+
+</html>
